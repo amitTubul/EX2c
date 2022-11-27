@@ -16,7 +16,6 @@ int min(int a, int b)
 void A()
 {
     int x;
-    printf("please enter the matrix value\n");
 
     for (int i = 0; i < 10; i++)
     {
@@ -50,21 +49,24 @@ void B()
 
     if(mat[i][j]!=0)
     {
-        printf("True");
+        printf("True\n");
     }
     else
     {
-        printf("False");
+        printf("False\n");
     }
 }
-int C()
+void C()
 {
     int i;
     int j;
     scanf("%d",&i);
     scanf("%d",&j);
-    if(ans[i][j]==0) return -1;
-    return ans[i][j];
+    if(ans[i][j]==0)
+    {
+        printf("-1\n");
+    }
+    printf( "%d\n",ans[i][j]);
 }
 
 
