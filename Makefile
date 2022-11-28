@@ -9,16 +9,16 @@ my_mat.o: my_mat.c my_mat.h
 main.o: main.c my_mat.h
 	$(CC) $(FLAGS) -c main.c
 
-mats: libmat.a
+mats: libmy_mat.a
 
-libmat.a: my_mat.o my_mat.o
-	$(AR) -rcs  libmat.a my_mat.o my_mat.o
+libmy_mat.a: my_mat.o my_mat.o
+	$(AR) -rcs  libmy_mat.a my_mat.o my_mat.o
 
-connections: main.o libmat.a
-	$(CC) $(FLAGS) -o connections main.o  libmat.a -lm
+connections: main.o libmy_mat.a
+	$(CC) $(FLAGS) -o connections main.o  libmy_mat.a 
 
 clean:
-	rm -f libmat.a connections mats main *.o
+	rm -f libmy_mat.a connections mats main *.o
 
 
 .PHONY: clean all mats main

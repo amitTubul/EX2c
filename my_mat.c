@@ -1,8 +1,15 @@
 #include "my_mat.h"
 #include <stdio.h>
+#include <limits.h>
 
-int mat[10][10];
-int ans[10][10];
+#define T 10
+#define inf INT_MAX
+
+int mat[T][T];
+int ans[T][T];
+int temp[T][T];
+
+
 
 int min(int a, int b)
 {
@@ -17,25 +24,53 @@ void A()
 {
     int x;
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < T; i++)
     {
-        for (int j = 0; j < 10; j++)
+        for (int j = 0; j < T; j++)
         {
             scanf("%d",&x);
             mat[i][j]=x;
-        }
-    }
-    for (int k = 0; k <10 ; k++)
-    {
-        for (int i= 0; i <10 ; i++)
-        {
-            for (int j = 0; j <10 ; j++)
+            if (x==0 && i!=j)
             {
-                ans[i][j]=min(mat[i][j],mat[i][k]+mat[k][j]);
+                ans[i][j] = inf;
+                temp[i][j] = inf;
+            }
+            else
+            {
+                ans[i][j] = x;
+                temp[i][j] = x;
             }
         }
     }
+
+    for (int k = 0; k < T ; k++)
+    {
+        for (int i= 0; i < T ; i++)
+        {
+            for (int j = 0; j < T ; j++)
+            {
+                if(temp[i][k]==inf || temp[k][j]==inf || temp[i][k] + temp[k][j]==inf || temp[i][k] + temp[k][j]<0)
+                {
+                    ans[i][j]=temp[i][j];
+                    continue;
+                }
+                ans[i][j] = min(temp[i][j], temp[i][k] + temp[k][j]);
+
+            }
+        }
+
+        for (int i= 0; i < T ; i++)
+        {
+            for (int j = 0; j < T; j++)
+            {
+               temp[i][j]=ans[i][j];
+            }
+        }
+    }
+
 }
+
+
 
 
 
@@ -46,8 +81,7 @@ void B()
 
     scanf("%d",&i);
     scanf("%d",&j);
-
-    if(mat[i][j]!=0)
+    if(ans[i][j]!=inf && ans[i][j]!=0)
     {
         printf("True\n");
     }
@@ -55,6 +89,7 @@ void B()
     {
         printf("False\n");
     }
+
 }
 void C()
 {
@@ -62,11 +97,14 @@ void C()
     int j;
     scanf("%d",&i);
     scanf("%d",&j);
-    if(ans[i][j]==0)
+    if(ans[i][j]==inf || ans[i][j]==0)
     {
         printf("-1\n");
     }
-    printf( "%d\n",ans[i][j]);
+    else
+    {
+        printf("%d\n", ans[i][j]);
+    }
 }
 
 
